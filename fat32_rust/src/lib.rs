@@ -6,6 +6,7 @@ extern crate alloc;
 ///
 /// Projet - Reimplementation of FAT32
 
+pub mod boot_sector;
 
 /// ntry point of module FAT32
 pub struct Fat32;
