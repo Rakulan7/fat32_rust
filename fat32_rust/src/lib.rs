@@ -10,6 +10,8 @@ pub mod boot_sector;
 
 pub mod layout;
 
+pub mod fat;
+
 /// ntry point of module FAT32
 pub struct Fat32;
 
