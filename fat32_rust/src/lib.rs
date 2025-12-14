@@ -8,6 +8,8 @@ extern crate alloc;
 
 pub mod boot_sector;
 
+pub mod layout;
+
 /// ntry point of module FAT32
 pub struct Fat32;
 
