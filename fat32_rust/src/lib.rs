@@ -12,6 +12,9 @@ pub mod layout;
 
 pub mod fat;
 
+pub mod disk;
+pub mod cluster;
+
 /// ntry point of module FAT32
 pub struct Fat32;
 
