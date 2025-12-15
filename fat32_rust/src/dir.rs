@@ -3,8 +3,8 @@
 use alloc::string::{String, ToString};
 use alloc::vec::Vec;
 
+use crate::cluster::ClusterReader;
 use crate::disk::Disk;
-use crate::file::FileReader;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DirectoryEntry {
@@ -15,16 +15,16 @@ pub struct DirectoryEntry {
 }
 
 pub struct DirectoryReader<'a, D: Disk> {
-    file_reader: &'a FileReader<'a, D>,
+    cluster_reader: &'a ClusterReader<'a, D>,
 }
 
 impl<'a, D: Disk> DirectoryReader<'a, D> {
-    pub fn new(file_reader: &'a FileReader<'a, D>) -> Self {
-        Self { file_reader }
+    pub fn new(cluster_reader: &'a ClusterReader<'a, D>) -> Self {
+        Self { cluster_reader }
     }
 
     pub fn read_dir(&self, start_cluster: u32) -> Vec<DirectoryEntry> {
-        let data = self.file_reader.read_file(start_cluster);
+        let data = self.cluster_reader.read_cluster(start_cluster);
         let mut entries = Vec::new();
 
         for chunk in data.chunks(32) {
@@ -47,7 +47,6 @@ impl<'a, D: Disk> DirectoryReader<'a, D> {
             }
 
             let is_dir = attr & 0x10 != 0;
-
             let name = parse_short_name(&chunk[0..11]);
 
             let cluster_high =

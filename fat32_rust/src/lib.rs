@@ -19,6 +19,8 @@ pub mod file;
 
 pub mod dir;
 
+pub mod path;
+
 /// ntry point of module FAT32
 pub struct Fat32;
 

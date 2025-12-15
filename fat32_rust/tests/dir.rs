@@ -49,8 +49,9 @@ fn read_root_directory() {
         ClusterReader::new(&disk, &layout, bs.bytes_per_sector);
 
     let fat = Fat::new(&[0u8; 64]);
-    let file_reader = FileReader::new(&fat, &cluster_reader);
-    let dir_reader = DirectoryReader::new(&file_reader);
+
+    let _file_reader = FileReader::new(&fat, &cluster_reader);
+    let dir_reader = DirectoryReader::new(&cluster_reader);
 
     let entries = dir_reader.read_dir(2);
 
